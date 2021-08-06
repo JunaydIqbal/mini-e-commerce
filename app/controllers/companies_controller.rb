@@ -1,26 +1,49 @@
-class CompanyController < ApplicationController
+class CompaniesController < ApplicationController
 
   before_action :set_company, only: %i[ show edit update destroy]
   before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :index]
-  load_and_authorize_resource
+  #load_and_authorize_resource
+
 
   def index
-    @company = Company.where(user_id: current_user.id)
+    if current_user.company != nil
+      @company = Company.where(user_id: current_user.id)
+    else
+      redirect_to new_company_path
+    end
+  
+  end
+
+  def list
+    if current_user.company != nil
+      @company = Company.all.order("created_at DESC")
+    else
+      respond_to do |format|
+        
+        format.html { redirect_to new_company_path, notice: "You've not owned any company!" }
+        format.json { render :show, status: :created, location: @company }
+      
+      end
+    end
+
   end
 
   def show
-    
+    #authorize! :show, @company
   end
 
   def new
-
+    
+    @company = Company.new
+    
   end
 
   def create
     @company = Company.new(company_params)
-      respond_to do |format|
+    @company.user_id = current_user.id
+    respond_to do |format|
       if @company.save
-        format.html { redirect_to company_index_path, notice: "Company was successfully created." }
+        format.html { redirect_to companies_path, notice: "Company was successfully created." }
         format.json { render :show, status: :created, location: @company }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -30,13 +53,13 @@ class CompanyController < ApplicationController
   end
 
   def edit
-
+    authorize! :update, @company
   end
 
   def update
     respond_to do |format|
       if @company.update(company_params)
-        format.html { redirect_to company_index_path, notice: "Company was successfully updated." }
+        format.html { redirect_to companies_path, notice: "Company was successfully updated." }
         format.json { render :show, status: :ok, location: @company }
       else
         format.html { render :edit, status: :unprocessable_entity }

@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <h3>Owner:<b><%=current_user.email.split("@")[0].capitalize%></b></h3>
+  <h3>Owner: <b><%=current_user.email.split("@")[0].capitalize%></b></h3>
   <br>
   <%= form.text_field :name, placeholder: "Company name", class: "form-control", required: true%><br>
   <%= form.text_area :description, rows: 3, class: "form-control", placeholder: "Write your company description!", required: true %>

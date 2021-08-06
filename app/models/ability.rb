@@ -38,8 +38,8 @@ class Ability
       can :update, Company, user_id: user.id
     
       can :destroy, Company, user_id: user.id
-
-      can :manage, Company, user_id: user.id
+      
+      #can :manage, Company, user_id: user.id
 
     end
 

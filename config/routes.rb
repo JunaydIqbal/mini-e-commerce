@@ -10,7 +10,11 @@ Rails.application.routes.draw do
 
   }
 
-  resources :company
+  resources :companies
+  get "companies-list", to: "companies#list"
+
+  
+
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
