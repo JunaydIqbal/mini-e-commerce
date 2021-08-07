@@ -11,7 +11,10 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
+    
     super
+    
+    flash[:notice] = "You're login with #{current_user.roles.first.name} Role!"
   end
 
   # DELETE /resource/sign_out
@@ -25,5 +28,6 @@ class Users::SessionsController < Devise::SessionsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_in_params
     devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :password])
+    
   end
 end

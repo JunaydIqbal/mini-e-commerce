@@ -27,13 +27,9 @@
   <body>
     <%= render 'home/header' %>
     <div class="container">
-      <% if notice %>
-        <%= render 'layouts/alerts'%>
-      <%end%>
-      <% if alert %>
-        <%= render 'layouts/danger'%>
-      <% end %>
-      <br>
+      <%= flash[:notice]%>
+      
+      
       <%= yield %>
     </div>
 

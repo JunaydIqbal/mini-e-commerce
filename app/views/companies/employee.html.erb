@@ -1,0 +1,31 @@
+<h2 style="text-align: center">Employees</h2>
+<%count = 0%>
+<div style="text-align: right;">
+    <%= link_to 'Add Employee', new_user_invitation_path(current_user), class: "btn btn-success" %>
+</div>
+<div style="text-align: right;">
+    Total Employees: <b><%= current_user.invitees.count %></b>
+</div>
+<table class="table">
+  <thead class="table-dark">
+    <th scope="col">#</th>
+    <th scope="col">Username</th>
+    <th scope="col">Email</th>
+    <th scope="col">Accepted</th>
+  </thead>
+  <% current_user.invitees.each do |user|%>
+  <tbody>
+    <tr>
+      <th scope="row"><%=count += 1 %></th>
+      <td><%= user.email.split("@")[0].capitalize %></td>
+      <td><%= user.email %></td>
+      <td><%= user.invitation_accepted?.to_s.capitalize%></td>
+    </tr>
+  </tbody>
+  <%end%>
+
+  
+
+</table>
+
+<br><br>

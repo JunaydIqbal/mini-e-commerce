@@ -7,11 +7,13 @@ Rails.application.routes.draw do
     :sessions => "users/sessions",
     :passwords => "users/passwords",
     :confirmations => "users/confirmations"
+    
 
   }
 
   resources :companies
   get "companies-list", to: "companies#list"
+  get "employees", to: "companies#employee"
 
   
 
