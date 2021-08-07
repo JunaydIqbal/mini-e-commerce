@@ -31,7 +31,7 @@ class Ability
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
 
-    if user.present?
+    if user.has_role? :vendor
 
       can :create, Company
 
@@ -40,6 +40,18 @@ class Ability
       can :destroy, Company, user_id: user.id
       
       #can :manage, Company, user_id: user.id
+    elsif user.has_role? :admin
+      can :create, Company
+      can :manage, Company
+      can :update, Company
+    
+      can :destroy, Company
+    
+    elsif user.has_role? :employee
+      can :show, Company
+
+    elsif user.has_role? :newuser
+      can :show, Company
 
     end
 

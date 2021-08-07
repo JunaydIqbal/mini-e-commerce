@@ -43,8 +43,29 @@
 						</div>
 					
 					</div>
-					<%if user_signed_in? && current_user.company != nil%>
+					
+					<%if user_signed_in? && current_user.has_role?(:admin) %>
 						<div class="col-sm-10">
+							<div class="shop-menu pull-right">
+								<ul class="nav navbar-nav">
+									<li><a><i class="fa fa-user"></i> Account</a></li>
+									
+									<li><a><i class="fa fa-shopping-bag"></i> Products</a></li>
+									
+										<li>
+										<%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link"%>
+										</li>
+										<li>
+										
+											<a>Welcome <b><%=current_user.email.split("@")[0].capitalize%></b></a>
+											
+										</li>
+
+								</ul>
+							</div>
+						</div>
+						<%elsif user_signed_in? && current_user.company != nil %>
+							<div class="col-sm-10">
 							<div class="shop-menu pull-right">
 								<ul class="nav navbar-nav">
 									<li><a><i class="fa fa-user"></i> Account</a></li>

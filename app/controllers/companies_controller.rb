@@ -15,7 +15,9 @@ class CompaniesController < ApplicationController
   end
 
   def list
-    if current_user.company != nil
+    if current_user.has_role? :admin
+      @company = Company.all.order("created_at DESC")
+    elsif current_user.company != nil
       @company = Company.all.order("created_at DESC")
     else
       respond_to do |format|
@@ -59,7 +61,7 @@ class CompaniesController < ApplicationController
   def update
     respond_to do |format|
       if @company.update(company_params)
-        format.html { redirect_to companies_path, notice: "Company was successfully updated." }
+        format.html { redirect_to @company, notice: "Company was successfully updated." }
         format.json { render :show, status: :ok, location: @company }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -71,7 +73,7 @@ class CompaniesController < ApplicationController
   def destroy
     @company.destroy
     respond_to do |format|
-      format.html { redirect_to root_url, notice: "Company was successfully destroyed." }
+      format.html { redirect_to root_path, notice: "Company was successfully destroyed." }
       format.json { head :no_content }
     end
   end

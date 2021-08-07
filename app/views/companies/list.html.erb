@@ -50,6 +50,11 @@
                           <%= link_to 'Edit Profile', edit_company_path(comp), class: "btn btn-warning" %> 
                         </div>
                       <%end%>
+                      <% if can? :manage, comp %>
+                        <div style="display: inline-block;">
+                          <%= link_to 'Delete', comp, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+                        </div>
+                      <%end%>
                   </div>
                   
               </div>   
