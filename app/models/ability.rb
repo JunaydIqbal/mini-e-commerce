@@ -55,6 +55,10 @@ class Ability
 
     end
 
+    if customer.present?
+      can :show, Company
+    end
+
 
   end
 end
