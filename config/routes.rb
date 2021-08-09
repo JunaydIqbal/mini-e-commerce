@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
 
+  resources :products
   root to: "home#index"
-  # devise_for :users
+  #devise_for :users
   #devise_for :customers
   devise_for :users, :controllers => {
     :registrations => "users/registrations",
     :sessions => "users/sessions",
     :passwords => "users/passwords",
     :confirmations => "users/confirmations"
+    
   }
 
   devise_for :customers, :controllers => {
@@ -38,6 +40,7 @@ Rails.application.routes.draw do
   get "companies-list", to: "companies#list"
   get "employees", to: "companies#employee"
 
+  get "my-products", to: "products#my_product"
   
 
   

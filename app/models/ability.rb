@@ -38,7 +38,13 @@ class Ability
       can :update, Company, user_id: user.id
     
       can :destroy, Company, user_id: user.id
-      
+
+      can :create, Product
+
+      can :update, Product, company_id: user.company.id
+
+      can :destroy, Product, company_id: user.company.id
+
       #can :manage, Company, user_id: user.id
     elsif user.has_role? :admin
       can :create, Company
@@ -46,9 +52,18 @@ class Ability
       can :update, Company
     
       can :destroy, Company
+
+      can :create, Product
+
+      can :update, Product, company_id: user.company.id
+
+      can :destroy, Product, company_id: user.company.id
     
     elsif user.has_role? :employee
       can :show, Company
+      can :create, Product
+      
+      can :update, Product 
 
     elsif user.has_role? :newuser
       can :show, Company
@@ -58,9 +73,11 @@ class Ability
   end
 
   def initialize(customer)
+
     if customer.present? 
       can :show, Company
     end
+
   end
 
 end
