@@ -1,26 +1,35 @@
-<h2>Log in</h2>
-
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  <section id="form"><!--form-->
+      <div class="container center_div">
+        <div class="row">
+          <div class="col-sm-4 col-sm-offset-4 justify-content-center">
+            <div class="login-form"><!--login form-->
+              <h2>Customer Login Account</h2>
+  
+    
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Username or Email", class: "form-control" %>
+  
+                <%= f.password_field :password, autocomplete: "current-password", placeholder: "Password", class: "form-control" %>
+              <br>
+              <span>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+                <% if devise_mapping.rememberable? %>
+      
+                  <%= f.check_box :remember_me, class: "form-check-input" %>
+                  <label class="form-check-label">Keep me signed in</label>
+              </span>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
+              <% end %>
+              <br>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
+  
+              <%= f.submit "Log in", class: "btn btn-primary", data: {disable_with: "Please wait..."} %>
+            </div><!--/login form-->
+            <%= render "customers/shared/links" %>
+          </div>
+          
+      </div>
+	</section><!--/form-->
 <% end %>
 
-<%= render "customers/shared/links" %>
+

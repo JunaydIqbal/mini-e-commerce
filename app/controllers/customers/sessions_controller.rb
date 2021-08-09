@@ -11,7 +11,10 @@ class Customers::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   # def create
-  #   super
+  #   #super
+  #   # customer = Customer.from_omniauth(env["omniauth.auth"])
+  #   # session[:customer_id] = customer.id
+  #   # redirect_to root_path
   # end
 
   # DELETE /resource/sign_out

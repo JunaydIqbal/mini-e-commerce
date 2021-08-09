@@ -27,8 +27,11 @@ gem 'devise'
 gem 'cancancan'
 gem "rolify"
 gem 'devise_invitable', '~> 2.0.0'
+gem 'omniauth-rails_csrf_protection'
+gem 'omniauth-google-oauth2'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
+gem "figaro"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

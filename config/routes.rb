@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root to: "home#index"
   # devise_for :users
-  # devise_for :customers
+  #devise_for :customers
   devise_for :users, :controllers => {
     :registrations => "users/registrations",
     :sessions => "users/sessions",
@@ -14,13 +14,14 @@ Rails.application.routes.draw do
     :registrations => "customers/registrations",
     :sessions => "customers/sessions",
     :passwords => "customers/passwords",
-    :confirmations => "customers/confirmations"
+    :confirmations => "customers/confirmations",
+    :omniauth_callbacks => "customers/omniauth_callbacks"
   }
 
   devise_scope :user do
     authenticated :user do
       namespace :users do
-        get 'users/sessions', as: :authenticated_root
+        get 'home/index', as: :authenticated_root
       end
     end
   end
@@ -28,7 +29,7 @@ Rails.application.routes.draw do
   devise_scope :customer do
     authenticated :customer do
       namespace :customers do
-        get 'customers/sessions', as: :authenticated_root
+        get 'home/index', as: :authenticated_root
       end
     end
   end

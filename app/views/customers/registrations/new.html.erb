@@ -1,29 +1,36 @@
-<h2>Sign up</h2>
-
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "customers/shared/error_messages", resource: resource %>
+  <section id="form"><!--form-->
+    <div class="container center_div">
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-4 justify-content-center">
+          <div class="login-form"><!--login form-->
+            <h2>Customer Register</h2>
+              <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "Full Name", class: "form-control" %>
+              <%= f.text_field :phone, autofocus: true, autocomplete: "phone", placeholder: "Phone", class: "form-control" %>
+              <%= f.text_field :username, autofocus: true, autocomplete: "username", placeholder: "Username", class: "form-control" %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email", class: "form-control" %>
+              <br>
+              <div class="field">
+                <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> characters minimum)</em>
+                <% end %><br />
+                <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Password" %>
+              </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+              <div class="field">
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Confirm Password" %>
+              </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+  
+              <%= f.submit "Sign up", class: "btn btn-primary", data: {disable_with: "Processing..."} %>
+             </div><!--/login form-->
+          <%= render "customers/shared/links" %>
+        </div>
+        
+    </div>
+  </section><!--/form-->
 <% end %>
 
-<%= render "customers/shared/links" %>
+
