@@ -7,7 +7,7 @@ class CompaniesController < ApplicationController
 
   def index
    
-    if current_user.company != nil || current_user.has_role?(:employee)
+    if current_user.company != nil
       @company = Company.where(user_id: current_user.id)
     else
       redirect_to new_company_path
@@ -16,7 +16,7 @@ class CompaniesController < ApplicationController
   end
 
   def list
-    if customer_signed_in? || current_user.has_role?(:admin)
+    if customer_signed_in? || current_user.has_role?(:admin) || current_user.has_role?(:employee)
       @company = Company.all.order("created_at DESC")
     elsif current_user.company != nil
       @company = Company.all.order("created_at DESC")
