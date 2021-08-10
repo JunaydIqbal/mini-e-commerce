@@ -7,7 +7,7 @@ class CompaniesController < ApplicationController
 
   def index
    
-    if current_user.company != nil
+    if current_user.company != nil || current_user.has_role?(:employee)
       @company = Company.where(user_id: current_user.id)
     else
       redirect_to new_company_path
@@ -36,7 +36,7 @@ class CompaniesController < ApplicationController
   end
 
   def new
-    authorize! :create, @company
+    #authorize! :show, @company
     @company = Company.new
     
   end
