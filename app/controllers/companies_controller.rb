@@ -16,7 +16,7 @@ class CompaniesController < ApplicationController
   end
 
   def list
-    if customer_signed_in? || current_user.has_role?(:admin) || current_user.has_role?(:employee)
+    if customer_signed_in? || current_user.has_role?(:admin)
       @company = Company.all.order("created_at DESC")
     elsif current_user.company != nil
       @company = Company.all.order("created_at DESC")
