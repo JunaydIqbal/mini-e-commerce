@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :products
+  
   root to: "home#index"
   #devise_for :users
   #devise_for :customers
@@ -35,7 +35,7 @@ Rails.application.routes.draw do
       end
     end
   end
-
+  resources :products
   resources :companies
   get "companies-list", to: "companies#list"
   get "employees", to: "companies#employee"

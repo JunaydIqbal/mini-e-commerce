@@ -27,7 +27,6 @@ class Customers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
     data = access_token.info
     @customer = Customer.where(:email => access_token.email, :id => access_token.id ).first
-    
     if @customer
       sign_in_and_redirect @customer, event: :authentication
     else
@@ -45,6 +44,19 @@ class Customers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
       redirect_to new_customer_registration_path, notice: @customer.errors.full_messages.join("\n")
    end
  end
+  # def self.from_omniauth(access_token)
+  #   data = access_token.info
+  #   customer = Customer.where(email: data['email']).first
+
+  #   # Uncomment the section below if you want users to be created if they don't exist
+  #   unless customer
+  #     customer = Customer.create(name: data['name'],
+  #         email: data['email'],
+  #         password: Devise.friendly_token[0,20]
+  #       )
+  #   end
+  #   customer
+  # end
 
   # More info at:
   # https://github.com/heartcombo/devise#omniauth

@@ -18,11 +18,13 @@ class User < ApplicationRecord
     self.add_role(:vendor) if self.roles.blank?
   end
 
-  def check_company?(comp)
-    Company.include?(comp)
-    # curr_user = User.find(u_id)
-    # Company.include?(curr_user)
-  end
+  
+
+  # def check_company?(comp)
+  #   Company.include?(comp)
+  #   # curr_user = User.find(u_id)
+  #   # Company.include?(curr_user)
+  # end
 
 
 end

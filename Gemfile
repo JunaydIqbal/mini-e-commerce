@@ -28,7 +28,9 @@ gem 'cancancan'
 gem "rolify"
 gem 'devise_invitable', '~> 2.0.0'
 gem 'omniauth-rails_csrf_protection'
+gem 'omniauth'
 gem 'omniauth-google-oauth2'
+gem 'activerecord-session_store'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 gem "figaro"
