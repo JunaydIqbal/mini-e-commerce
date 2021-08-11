@@ -5,15 +5,47 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
   include Accessible
   skip_before_action :check_resource, except: [:new, :create]
+  CREATE_COMPANY_PARAMS = [:name]
+
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    @user = User.new
+    @company = Company.new
+    #super
+  end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    # @user = User.new(configure_sign_up_params)
+    # @user.company = Company.create(CREATE_COMPANY_PARAMS)
+    # respond_to do |format|
+    #   if @user.save
+    #     format.html { redirect_to root_path, notice: 'User was successfully created.' }
+    #   else
+    #     format.html { render action: 'new' }
+    #     format.json { render json: @user.errors, status: :unprocessable_entity }
+    #   end
+    # end
+    # @company = Company.new(configure_sign_up_params)
+    # @company.user_id = @user
+    # super do |created_user|
+    #   if created_user.id
+    #     company = Company.create! create_company_params
+    #     created_user.update! company_id: company.id
+    #   end
+    # end
+    #ss
+    super do |created_user|
+      if created_user.id
+        
+        @company = Company.new(name: params[:user][:company][:name])
+        @company.user_id = created_user.id
+        @company.save
+            
+      end
+    end
+  
+  end
 
   # GET /resource/edit
   # def edit
@@ -41,10 +73,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # protected
 
+  
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :password_confirmation, :name])
+    
+  end
+
+
+  
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params

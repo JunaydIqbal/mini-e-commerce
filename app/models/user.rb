@@ -8,15 +8,31 @@ class User < ApplicationRecord
   has_one :company
   has_many :products
   has_many :invitees, class_name: "User", foreign_key: :invited_by_id
-  
+  # accepts_nested_attributes_for :company
+  # attr_accessor :company
+  has_and_belongs_to_many :employees, class_name: "User", foreign_key: :user_id
   
 
   after_create :assign_default_role
+  #before_create :create_new_company
+  #after_create :create_and_associate_company
+
 
   def assign_default_role
     self.add_role(:employee) if self.roles.blank? && self.created_by_invite?
     self.add_role(:vendor) if self.roles.blank?
   end
+
+  # def create_and_associate_company
+  #   company = self.company.new
+  #   # Other necessary attributes assignments
+
+  #   company.save
+  # end 
+
+  # def create_new_company
+  #   self.company << Company.new
+  # end
 
   
 

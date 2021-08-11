@@ -14,7 +14,8 @@
               <div class="col-sm-12">
                   <div class="col-xs-12 col-sm-8">
                       <h2><%= comp.name.upcase%></h2>
-                      <p><strong>Description: </strong> <%=comp.description.humanize%> </p>
+                      <% comp.description != nil ? des = comp.description.humanize : des = " " %>
+                      <p><strong>Description: </strong> <%= des.humanize %> </p>
                       
                       <p><strong>Tags: </strong>
                           <span class="tags">Shopping</span> 

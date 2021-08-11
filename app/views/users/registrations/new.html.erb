@@ -19,6 +19,12 @@
               
               <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirm your password", class: "form-control" %>
             </div>
+            <br>
+            <%= f.fields_for :company do |comp| %>
+              <%= comp.text_field :name, class: "form-control", placeholder: "Company" %>
+            <% end %>
+
+            <br>
             <%= f.submit "Sign up", class: "btn btn-primary", data: {disable_with: "Processing..."} %>
             
           </div><!--/login form-->

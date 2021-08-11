@@ -25,8 +25,8 @@ class ApplicationController < ActionController::Base
 
     def after_sign_in_path_for(resource)
       stored_location_for(resource) ||
-        if resource.is_a?(User) && resource.company == nil && resource.has_role?(:vendor)
-          new_company_path
+        if resource.is_a?(User) && resource.description == nil && resource.has_role?(:vendor)
+          edit_company_path
         else
           super
         end
