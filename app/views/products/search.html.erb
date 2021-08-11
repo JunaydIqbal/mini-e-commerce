@@ -1,0 +1,20 @@
+<h1>Search Results</h1>
+<% count = 0%>
+<table class="table">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <% @products.each do |result| %>
+    <tbody>
+      <tr>
+        <th scope="row"><%= count += 1 %></th>
+        <td><%= result.name.capitalize%></td>
+        <td><%= result.price%></td>
+      </tr>
+    </tbody>
+  <%end%>
+</table>

@@ -189,7 +189,7 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="#">Home</a></li>
+								<li><a href="<%= root_path %>">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="#">Products</a></li>
@@ -210,9 +210,18 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-3">
+					<div class="col-sm-4 pull-right">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+							
+							<%= form_tag(search_path, :method => "get", class: 'navbar-form navbar-left') do %>  
+							<div class="input-group">  
+								<%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control", required: true %>  
+								<div class="input-group-btn">  
+									<%= button_tag "Search", :class => 'btn btn-info',:name => nil%>  
+								</div>  
+							</div>  
+						<% end %>
+
 						</div>
 					</div>
 				</div>

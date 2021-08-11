@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   resources :companies
   get "companies-list", to: "companies#list"
   get "employees", to: "companies#employee"
+  get 'search', to: "products#search"
 
   get "my-products", to: "products#my_product"
   
