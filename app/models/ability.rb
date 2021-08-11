@@ -3,7 +3,7 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(resource)
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
@@ -30,43 +30,44 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
-    
-    if user.has_role? :vendor
-      can :index, Company, user_id: user.id
-      can :list, Company
-      can :show, Company, user_id: user.id
-      can :update, Company, user_id: user.id
-      can :destroy, Company, user_id: user.id
-      can :employee, Company, user_id: user.id
-      can :invite, User
-      can :create, Product
-      can :show, Product
-      can :index, Product
-      can :update, Product, company_id: user.company.id
-      can :manage, Product, company_id: user.company.id
-      can :destroy, Product, company_id: user.company.id
-    elsif user.has_role? :admin
-      can :create, Company
-      can :manage, Company
-      can :update, Company
-      can :destroy, Company
-      can :create, Product
-      can :update, Product, company_id: user.company.id
-      can :destroy, Product, company_id: user.company.id
-    elsif user.has_role? :employee
-      can :index, Company, user_id: user.id
-      can :show, Company, user_id: user.id
-      can :list, Company  
-      can :employee, Company, user_id: user.id
-      can :create, Product
-      can :show, Product
-      can :index, Product
-    elsif user.has_role? :newuser
-      can :show, Company
+    if resource.is_a?(User)
+      if resource.has_role? :vendor
+        can :index, Company, user_id: resource.id
+        can :list, Company
+        can :show, Company, user_id: resource.id
+        can :update, Company, user_id: resource.id
+        can :destroy, Company, user_id: resource.id
+        can :employee, Company, user_id: resource.id
+        can :invite, User
+        can :create, Product
+        can :show, Product
+        can :index, Product
+        can :update, Product, company_id: resource.company.id
+        can :manage, Product, company_id: resource.company.id
+        can :destroy, Product, company_id: resource.company.id
+      elsif resource.has_role? :admin
+        can :create, Company
+        can :manage, Company
+        can :update, Company
+        can :destroy, Company
+        can :create, Product
+        can :update, Product, company_id: resource.company.id
+        can :destroy, Product, company_id: resource.company.id
+      elsif resource.has_role? :employee
+        can :index, Company, user_id: resource.id
+        can :show, Company, user_id: resource.id
+        can :list, Company  
+        can :employee, Company, user_id: resource.id
+        can :create, Product
+        can :show, Product
+        can :index, Product
+      elsif resource.has_role? :newuser
+        can :show, Company
+      end
     else
       can :show, Product
       can :index, Product
-      can :list, Company  
+      can :list, Company
       can :show, Company
     end
   end

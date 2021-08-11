@@ -11,6 +11,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # def authenticate!
+  #   if current_user.is_a?(User)
+  #       :authenticate_user!
+  #   elsif current_user.is_a?(Customer)
+  #       :authenticate_customer!
+  #   end
+  # end
+
+  def current_ability
+    if customer_signed_in?
+      @current_ability ||= Ability.new(current_customer)
+    else
+      @current_ability ||= Ability.new(current_user)
+    end
+  end
+
   private
 
     def require_login

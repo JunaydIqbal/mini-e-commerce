@@ -1,7 +1,7 @@
 class CompaniesController < ApplicationController
 
   before_action :set_company, only: %i[ show edit update destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :except => [:list]
   #before_action :authenticate_customer!
   
   
@@ -9,7 +9,7 @@ class CompaniesController < ApplicationController
 
 
   def index
-   
+    
     if current_user.has_role?(:vendor)
       @company = Company.where(user_id: current_user.id)
     elsif current_user.has_role?(:employee)
@@ -33,7 +33,7 @@ class CompaniesController < ApplicationController
   end
 
   def employee
-    
+
   end
 
   def show
