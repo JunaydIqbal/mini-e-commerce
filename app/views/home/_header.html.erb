@@ -18,10 +18,20 @@
 							<ul class="nav nav-pills">
 								<li><a href=""><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
 								<li><a href=""><i class="fa fa-envelope"></i> info@eshopper.com</a></li>
+								
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-6">
+					<div class="social-icons pull-center">
+							<ul class="nav navbar-nav">
+							
+								<% if user_signed_in? && (current_user.has_role?(:employee) || current_user.has_role?(:vendor)) %>
+									<li><a href=""><i class="fa fa-building"></i>You are the <%= current_user.roles.first.name %> of <%= fetch_company[0] %></a></li>
+								<%end%>
+								
+							</ul>
+						</div>
 						<div class="social-icons pull-right">
 							<ul class="nav navbar-nav">
 								<li><a href=""><i class="fa fa-facebook"></i></a></li>
@@ -44,8 +54,11 @@
               
 							<a href="#"><img src="https://i.ibb.co/R34m4Dv/logo.png" alt="" /></a>
 						</div>
+						
 					
 					</div>
+					
+					
 					
 					<%if user_signed_in? && current_user.has_role?(:admin) %>
 						<div class="col-sm-10">
@@ -69,7 +82,7 @@
 							</div>
 						</div>
 						
-						<%elsif user_signed_in? && current_user.company != nil %>
+						<%elsif user_signed_in? && (current_user.company != nil || current_user.has_role?(:employee)) %>
 							<div class="col-sm-10">
 							<div class="shop-menu pull-right">
 								<ul class="nav navbar-nav">
@@ -153,11 +166,14 @@
 								</div>
 							</div>
 					<%end%>
-
-
+					
+				
 				</div>
+				
 			</div>
+		
 		</div><!--/header-middle-->
+		
 	
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
@@ -203,5 +219,6 @@
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
+
 
 

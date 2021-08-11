@@ -1,7 +1,8 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, only: [:edit, :update, :destroy, :new]
-
+  before_action :authenticate_user!
+  
+  load_and_authorize_resource
   # GET /products or /products.json
   def index
     @products = Product.all
@@ -27,13 +28,17 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
-    authorize! :update, @product
+    
   end
 
   # POST /products or /products.json
   def create
     @product = Product.new(product_params)
-    @product.company_id = current_user.company.id
+    if current_user.has_role?(:vendor)
+      @product.company_id = current_user.company.id
+    else
+      @product.company_id = helpers.fetch_company[1]
+    end
     @product.user_id = current_user.id
     respond_to do |format|
       if @product.save

@@ -30,54 +30,44 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
-
-    if user.has_role? :vendor
-
-      can :create, Company
-
-      can :update, Company, user_id: user.id
     
+    if user.has_role? :vendor
+      can :index, Company, user_id: user.id
+      can :list, Company
+      can :show, Company, user_id: user.id
+      can :update, Company, user_id: user.id
       can :destroy, Company, user_id: user.id
-
+      can :employee, Company, user_id: user.id
+      can :invite, User
       can :create, Product
-
+      can :show, Product
+      can :index, Product
       can :update, Product, company_id: user.company.id
-
+      can :manage, Product, company_id: user.company.id
       can :destroy, Product, company_id: user.company.id
-
-      #can :manage, Company, user_id: user.id
     elsif user.has_role? :admin
       can :create, Company
       can :manage, Company
       can :update, Company
-    
       can :destroy, Company
-
       can :create, Product
-
       can :update, Product, company_id: user.company.id
-
       can :destroy, Product, company_id: user.company.id
-    
     elsif user.has_role? :employee
-      can :show, Company
+      can :index, Company, user_id: user.id
+      can :show, Company, user_id: user.id
+      can :list, Company  
+      can :employee, Company, user_id: user.id
       can :create, Product
-      
-      can :update, Product 
-
+      can :show, Product
+      can :index, Product
     elsif user.has_role? :newuser
       can :show, Company
-
-    end
-
-  end
-
-  def initialize(customer)
-
-    if customer.present? 
+    else
+      can :show, Product
+      can :index, Product
+      can :list, Company  
       can :show, Company
     end
-
   end
-
 end

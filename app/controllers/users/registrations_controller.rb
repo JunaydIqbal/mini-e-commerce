@@ -5,8 +5,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
   include Accessible
   skip_before_action :check_resource, except: [:new, :create]
-  CREATE_COMPANY_PARAMS = [:name]
-
+  
   # GET /resource/sign_up
   def new
     @user = User.new

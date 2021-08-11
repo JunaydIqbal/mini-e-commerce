@@ -1,8 +1,10 @@
 <h2 style="text-align: center">Employees</h2>
 <%count = 0%>
-<div style="text-align: right;">
-    <%= link_to 'Add Employee', new_user_invitation_path(current_user), class: "btn btn-success" %>
-</div>
+<% if current_user.has_role?(:vendor)%>
+  <div style="text-align: right;">
+      <%= link_to 'Add Employee', new_user_invitation_path(current_user), class: "btn btn-success" %>
+  </div>
+<%end%>
 <div style="text-align: right;">
     Total Employees: <b><%= current_user.invitees.count %></b>
 </div>
@@ -23,8 +25,6 @@
     </tr>
   </tbody>
   <%end%>
-
-  
 
 </table>
 

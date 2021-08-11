@@ -1,34 +1,39 @@
 class CompaniesController < ApplicationController
 
   before_action :set_company, only: %i[ show edit update destroy]
-  before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :index]
-  #load_and_authorize_resource
+  before_action :authenticate_user!
+  #before_action :authenticate_customer!
+  
+  
+  load_and_authorize_resource
 
 
   def index
    
-    if current_user.company != nil || current_user.has_role?(:employee)
+    if current_user.has_role?(:vendor)
       @company = Company.where(user_id: current_user.id)
+    elsif current_user.has_role?(:employee)
+      @company = Company.where(user_id: current_user.invited_by_id)
     else
       redirect_to new_company_path
     end
-  
+    
   end
 
   def list
-    if customer_signed_in? || current_user.has_role?(:admin) || current_user.has_role?(:employee)
-      @company = Company.all.order("created_at DESC")
-    elsif current_user.company != nil
+    if customer_signed_in? || user_signed_in?
       @company = Company.all.order("created_at DESC")
     else
       respond_to do |format|
-        
         format.html { redirect_to new_company_path, notice: "You've not owned any company!" }
         format.json { render :show, status: :created, location: @company }
-      
       end
     end
 
+  end
+
+  def employee
+    
   end
 
   def show
@@ -56,7 +61,7 @@ class CompaniesController < ApplicationController
   end
 
   def edit
-    authorize! :update, @company
+    #authorize! :update, @company
   end
 
   def update
