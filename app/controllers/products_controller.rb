@@ -1,7 +1,8 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, :except => [:index, :show]
+  before_action :authenticate_user!, :except => [:index, :show, :search]
   load_and_authorize_resource
+  #require 'thinking_sphinx'
   # GET /products or /products.json
   def index
     @products = Product.all
@@ -25,19 +26,25 @@ class ProductsController < ApplicationController
     
   end
 
-  def search  
-    if params[:search].blank?
-      redirect_to(root_path, notice: "Product not found!") and return
-    else
-      @parameter = params[:search].downcase  
-      # @products = Product.all.where("lower(name) LIKE :search", search: @parameter)  
-      @products = Product.joins(:company).search(params[:search])
-      if @products.count == 0
-        redirect_to(search_path, notice: "Product not found!") and return
-      end
-      
-    end  
+  def search
+    
+    @products = Product.search(params[:search])
+    
   end
+
+  # def search  
+  #   if params[:search].blank?
+  #     redirect_to(root_path, notice: "Product not found!") and return
+  #   else
+  #     @parameter = params[:search].downcase  
+  #     # @products = Product.all.where("lower(name) LIKE :search", search: @parameter)  
+  #     @products = Product.joins(:company).search(params[:search])
+  #     if @products.count == 0
+  #       redirect_to(search_path, notice: "Product not found!") and return
+  #     end
+      
+  #   end  
+  # end
 
   # GET /products/1/edit
   def edit

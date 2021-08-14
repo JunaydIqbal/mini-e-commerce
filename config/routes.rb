@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     :confirmations => "customers/confirmations",
     :omniauth_callbacks => "customers/omniauth_callbacks"
   }
+  post '/auth/:provider/callback', to: 'sessions#create'
 
   devise_scope :user do
     authenticated :user do

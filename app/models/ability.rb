@@ -69,6 +69,7 @@ class Ability
       can :index, Product
       can :list, Company
       can :show, Company
+      can :search, Product
     end
   end
 end

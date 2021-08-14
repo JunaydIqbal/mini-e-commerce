@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :products
   has_many :invitees, class_name: "User", foreign_key: :invited_by_id
   # accepts_nested_attributes_for :company
-  # attr_accessor :company
+# attr_accessor :company
   #has_and_belongs_to_many :employees, class_name: "User", foreign_key: :user_id
   #belongs_to :company
 

@@ -31,9 +31,13 @@ gem 'omniauth-rails_csrf_protection'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'activerecord-session_store'
+gem 'omniauth-facebook'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 gem "figaro"
+
+gem 'mysql2',          '~> 0.4',    :platform => :ruby
+gem 'thinking-sphinx', '~> 5.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

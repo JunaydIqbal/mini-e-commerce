@@ -322,7 +322,13 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   #config.omniauth :google_oauth2, ENV["GOOGLE_KEY"], ENV["GOOGLE_SECRET"]
-  config.omniauth :google_oauth2, 'GOOGLE_KEY', 'GOOGLE_SECRET', {}
+  config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {}
+
+  Rails.application.config.middleware.use OmniAuth::Builder do
+    provider :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET']
+  end
+  #config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], {}
+
 
   # config.omniauth :google_oauth2, Rails.application.credentials.dig(:google, :google_client_id),
   # Rails.application.credendials.dig(:google, :google_client_secret), scope: 'userinfo.email,userinfo.profile'
