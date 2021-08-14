@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!, :except => [:index, :show, :search]
   load_and_authorize_resource
   #require 'thinking_sphinx'
+  require 'thinking_sphinx/capistrano'
   # GET /products or /products.json
   def index
     @products = Product.all

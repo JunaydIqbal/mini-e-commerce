@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     :sessions => "users/sessions",
     :passwords => "users/passwords",
     :confirmations => "users/confirmations"
-    
+    :invitations => 'users/invitations'
   }
 
   devise_for :customers, :controllers => {
