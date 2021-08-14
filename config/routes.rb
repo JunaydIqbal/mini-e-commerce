@@ -8,8 +8,8 @@ Rails.application.routes.draw do
     :registrations => "users/registrations",
     :sessions => "users/sessions",
     :passwords => "users/passwords",
-    :confirmations => "users/confirmations",
-    :invitations => 'users/invitations'
+    :confirmations => "users/confirmations"
+    #:invitations => "users/invitations"
   }
 
   devise_for :customers, :controllers => {
