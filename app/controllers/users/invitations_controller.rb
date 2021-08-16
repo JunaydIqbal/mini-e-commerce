@@ -1,6 +1,7 @@
 class Users::InvitationsController < Devise::InvitationsController
 
   before_action :is_vendor?, :only => [:new, :create]
+  skip_before_action :verify_authenticity_token
   
   def new
     super
