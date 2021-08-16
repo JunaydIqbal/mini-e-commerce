@@ -1,8 +1,7 @@
 class Users::InvitationsController < Devise::InvitationsController
 
   before_action :is_vendor?, :only => [:new, :create]
-  skip_before_action :verify_authenticity_token
-  
+
   def new
     super
   end
@@ -12,9 +11,7 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def update
-    
-      super
-    
+    super
   end
 
   # def invite_resource
@@ -34,6 +31,4 @@ class Users::InvitationsController < Devise::InvitationsController
   #   redirect_to after_sign_out_path_for(resource_name)
 
   # end
-
-
 end

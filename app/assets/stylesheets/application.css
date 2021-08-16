@@ -12,4 +12,11 @@
  *
  *= require_tree .
  *= require_self
+ *= require animate.css
+ *= require bootstrap.min.css
+ *= require font-awesome.min.css
+ *= require main.css
+ *= require prettyPhoto.css
+ *= require price-range.css
+ *= require responsive.css
  */
