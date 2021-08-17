@@ -324,9 +324,12 @@ Devise.setup do |config|
   #config.omniauth :google_oauth2, ENV["GOOGLE_KEY"], ENV["GOOGLE_SECRET"]
   config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {}
 
-  Rails.application.config.middleware.use OmniAuth::Builder do
-    provider :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET']
-  end
+  # Rails.application.config.middleware.use OmniAuth::Builder do
+  #   provider :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET']
+  # end
+
+  config.omniauth :facebook, ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_APP_SECRET"], token_params: { parse: :json }, scope: 'email', info_fields: 'email, name, phone', auth_type: :reauthenticate
+  
   #config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], {}
 
 

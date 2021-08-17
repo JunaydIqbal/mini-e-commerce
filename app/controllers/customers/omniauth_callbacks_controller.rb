@@ -3,6 +3,7 @@
 class Customers::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # You should configure your model like this:
   #devise :omniauthable, omniauth_providers: [:google_oauth2]
+  skip_before_action :verify_authenticity_token, only: :facebook
   
   # You should also create an action method in this controller like this:
   # def twitter
@@ -35,11 +36,25 @@ class Customers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
   #   end
   # end
 
-  def facebook
-    @customer = Customer.from_omniauth(request.env["omniauth.auth"])
+  # def facebook
+  #   @customer = Customer.from_omniauth(request.env["omniauth.auth"])
 
+  #   if @customer.persisted?
+  #     sign_in_and_redirect @customer, event: :authentication #this will throw if @user is not activated
+  #     set_flash_message(:notice, :success, kind: "Facebook") if is_navigational_format?
+  #   else
+  #     session["devise.facebook_data"] = request.env["omniauth.auth"].except(:extra) # Removing extra as it can overflow some session stores
+  #     redirect_to new_customer_registration_url
+  #   end
+  # end
+
+  def facebook
+    
+    # You need to implement the method below in your model (e.g. app/models/user.rb)
+    @customer = Customer.from_fb_omniauth(request.env["omniauth.auth"])
+    
     if @customer.persisted?
-      sign_in_and_redirect @customer, event: :authentication #this will throw if @user is not activated
+      sign_in_and_redirect @customer, event: :authentication # this will throw if @user is not activated
       set_flash_message(:notice, :success, kind: "Facebook") if is_navigational_format?
     else
       session["devise.facebook_data"] = request.env["omniauth.auth"].except(:extra) # Removing extra as it can overflow some session stores

@@ -13,7 +13,7 @@ class Customer < ApplicationRecord
   def self.from_omniauth(access_token)
     data = access_token.info
     customer = Customer.where(email: data['email']).first
-
+    
     # Uncomment the section below if you want users to be created if they don't exist
     unless customer
       customer = Customer.create(username: data['name'].length > 15 ? data['name'].slice(0..14).gsub(/\s+/, "") : data['name'].gsub(/\s+/, ""),
@@ -24,6 +24,30 @@ class Customer < ApplicationRecord
     end
     customer
   end
+
+
+  def self.from_fb_omniauth(auth)
+    customer = Customer.where(email: auth.info.email).first
+
+    if customer
+      return customer
+    else
+      where(provider: auth.provider, cid: auth.cid).first_or_create do |customer|
+        customer.email = auth.info.email
+        customer.password = Devise.friendly_token[0, 20]
+        customer.name = auth.info.name   # assuming the user model has a name
+        # If you are using confirmable and the provider(s) you use validate emails, 
+        # uncomment the line below to skip the confirmation emails.
+        # user.skip_confirmation!
+        customer.cid = customer.cid
+        customer.provider = customer.provider
+      end
+    end
+  end
+  
+
+
+  
 
 
   # def self.create_from_provider_data(provider_data)

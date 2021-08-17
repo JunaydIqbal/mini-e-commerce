@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   
+  
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_path, :alert => exception.message
   end
@@ -18,6 +19,7 @@ class ApplicationController < ActionController::Base
   #       :authenticate_customer!
   #   end
   # end
+
 
   def current_ability
     if customer_signed_in?

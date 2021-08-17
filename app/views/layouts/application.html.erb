@@ -21,27 +21,22 @@
   <body>
     <%= render 'home/header' %>
     <div class="container">
-      <%if notice %>
-      <div class="alert alert-success alert-dismissible show" role="alert">
-        <%= notice %>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <% if flash[:notice] %>
+      <div class="alert alert-success message">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= flash[:notice]%>
       </div>
-      <%end%>
-
-      <% if alert%>
-        <div class="alert alert-danger alert-dismissible show" role="alert1">
-          <%= alert %>
-          <button type="button" class="close" data-dismiss="alert1" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      <%end%>
-      
-      
-      
-      
+    <% elsif flash[:error]%>
+      <div class="alert alert-danger message">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= flash[:error]%>
+      </div>
+     <% elsif flash[:alert] %>
+      <div class="alert alert-warning message">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= flash[:alert]%>
+      </div>
+    <% end %>
       
       <%= yield %>
     </div>

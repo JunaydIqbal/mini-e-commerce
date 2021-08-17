@@ -1,7 +1,7 @@
 class Users::InvitationsController < Devise::InvitationsController
 
   before_action :is_vendor?, :only => [:new, :create]
-
+  
   def new
     super
   end
