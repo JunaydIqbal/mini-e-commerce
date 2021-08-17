@@ -18,7 +18,6 @@ class Customer < ApplicationRecord
     unless customer
       customer = Customer.create(username: data['name'].length > 15 ? data['name'].slice(0..14).gsub(/\s+/, "") : data['name'].gsub(/\s+/, ""),
            email: data['email'],
-           phone: data['phone'],
            password: Devise.friendly_token[0,20]
         )
     end
@@ -26,24 +25,24 @@ class Customer < ApplicationRecord
   end
 
 
-  def self.from_fb_omniauth(auth)
-    customer = Customer.where(email: auth.info.email).first
+  # def self.from_fb_omniauth(auth)
+  #   customer = Customer.where(email: auth.info.email).first
 
-    if customer
-      return customer
-    else
-      where(provider: auth.provider, cid: auth.cid).first_or_create do |customer|
-        customer.email = auth.info.email
-        customer.password = Devise.friendly_token[0, 20]
-        customer.name = auth.info.name   # assuming the user model has a name
-        # If you are using confirmable and the provider(s) you use validate emails, 
-        # uncomment the line below to skip the confirmation emails.
-        # user.skip_confirmation!
-        customer.cid = customer.cid
-        customer.provider = customer.provider
-      end
-    end
-  end
+  #   if customer
+  #     return customer
+  #   else
+  #     where(provider: auth.provider, cid: auth.cid).first_or_create do |customer|
+  #       customer.email = auth.info.email
+  #       customer.password = Devise.friendly_token[0, 20]
+  #       customer.name = auth.info.name   # assuming the user model has a name
+  #       # If you are using confirmable and the provider(s) you use validate emails, 
+  #       # uncomment the line below to skip the confirmation emails.
+  #       # user.skip_confirmation!
+  #       customer.cid = customer.cid
+  #       customer.provider = customer.provider
+  #     end
+  #   end
+  # end
   
 
 
