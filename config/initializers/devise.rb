@@ -328,7 +328,7 @@ Devise.setup do |config|
   #   provider :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET']
   # end
 
-  config.omniauth :facebook, ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_APP_SECRET"], token_params: { parse: :json }, scope: 'email', info_fields: 'email, name, phone', auth_type: :reauthenticate
+  config.omniauth :facebook, ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_APP_SECRET"], token_params: { parse: :json }, scope: 'email, phone, name', display: 'popup'
   
   #config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], {}
 
