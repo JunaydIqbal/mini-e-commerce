@@ -10,7 +10,7 @@ module MiniECommerce
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
-    config.assets.initialize_on_precompile = false
+    #config.assets.initialize_on_precompile = false
     config.action_mailer.preview_path = "#{Rails.root}/spec/mailer_previews"
     #config.assets.initialize_on_precompile = false
     #config.assets.debug = true
