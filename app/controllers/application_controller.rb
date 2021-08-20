@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   
-  
+  before_action :initialize_session
+  before_action :load_cart
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_path, :alert => exception.message
   end
@@ -54,7 +56,14 @@ class ApplicationController < ActionController::Base
         else
           super
         end
-        
+    end
+  
+    def initialize_session
+      session[:cart] ||= [] # empty cart = empty array
+    end
+  
+    def load_cart
+      @cart = Product.find(session[:cart])
     end
 
 end

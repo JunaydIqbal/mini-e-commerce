@@ -70,6 +70,8 @@ class Ability
       can :list, Company
       can :show, Company
       can :search, Product
+      can :add_to_cart, Product
+      can :remove_from_cart, Product
     end
   end
 end

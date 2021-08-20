@@ -1,18 +1,32 @@
 <p id="notice"><%= notice %></p>
 
+<% if @cart != [] %>
+  <h1>Shopping Cart</h1>
+  <ol>
+    <% @cart.each do |product|%>
+      <li><%= product.name.capitalize%></li>
+      <br>
+    <%end%>
+  </ol>
+  <br><br>
+<%end%>
+
 <h1>Products</h1>
 
-<table>
-  <thead>
+<table class="table">
+  <thead class="table-dark">
     <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Price</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      
+      <th scope="col">Payment</th>
+      <th scope="col">Shopping Cart</th>
       <% if can? :manage, @products.first%>
-        <th>Sales</th>
+        <th scope="col">Sales</th>
       <%end%>
+      
       <th colspan="5"></th>
-      <th>Payment</th>
     </tr>
   </thead>
 
@@ -22,17 +36,21 @@
         <td><%= product.name %></td>
         <td><%= product.description %></td>
         <td><%= product.price %></td>
-
         
-        
+        <td><%= button_to "Buy Now!", checkout_create_path, params: {id: product.id}, remote: true, class: "btn btn-info" %></td>
+        <td>
+          <% if @cart.include?(product) %>
+            <%= button_to "Remove from cart", remove_from_cart_path(product), method: :delete, class: "btn btn-warning" %>
+          <% else %>
+            <%= button_to "Add to cart", add_to_cart_path(product), class: "btn btn-success" %>
+          <% end %>
+      </td>
         <% if can? :manage, product%>
           <td><%=product.sales_count%></td>
-          <td><%= link_to 'Edit', edit_product_path(product) %></td>
-          <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <td><%= link_to 'Show', product %></td>
+          <td><%= link_to 'Edit', edit_product_path(product), class: "btn btn-warning" %></td>
+          <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
+          <td><%= link_to 'Show', product, class: "btn btn-info" %></td>
         <%end%>
-        <td colspan="5"><%= button_to "Buy Now!", checkout_create_path, params: {id: product.id}, remote: true %></td>
-        
       </tr>
     <% end %>
   </tbody>
@@ -41,5 +59,7 @@
 <br>
 
 <% if can? :manage, @products.first%>
-  <%= link_to 'New Product', new_product_path %>
+  <%= link_to 'New Product', new_product_path, class: "btn btn-primary" %>
+  <br><br><br>
 <%end%>
+
