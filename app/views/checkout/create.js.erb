@@ -1,0 +1,9 @@
+var stripe = Stripe("<%= ENV["STRIPE_API_P_KEY"]%>");
+//var checkoutButton = document.getElementById('checkout-button');
+
+
+stripe.redirectToCheckout({
+  sessionId: '<%= @session.id%>'
+}).then(function (result) {
+  console.log(result.error.message);
+});

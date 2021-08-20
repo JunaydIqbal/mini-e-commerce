@@ -35,6 +35,8 @@ gem 'omniauth-facebook'
 #gem "letter_opener", group: :development
 gem 'mailgun-ruby', '~>1.2.5'
 
+gem 'stripe'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 gem "figaro"

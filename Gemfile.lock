@@ -264,6 +264,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stripe (5.38.0)
     thinking-sphinx (5.2.1)
       activerecord (>= 4.2.0)
       builder (>= 2.1.2)
@@ -332,6 +333,7 @@ DEPENDENCIES
   sass-rails (>= 6)
   selenium-webdriver
   spring
+  stripe
   thinking-sphinx (~> 5.2)
   turbolinks (~> 5)
   tzinfo-data
