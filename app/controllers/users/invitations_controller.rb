@@ -8,9 +8,15 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def create
-    
-    super
-    FormForMailer.send_invitation_email(@user).deliver
+
+    super do |created_user|
+      if created_user.id
+        @user = created_user
+        FormForMailer.send_invitation_email(@user).deliver
+            
+      end
+    end
+
   end
 
   def update
