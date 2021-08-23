@@ -4,10 +4,13 @@ class Users::InvitationsController < Devise::InvitationsController
   
   def new
     super
+    
   end
 
   def create
+    
     super
+    FormForMailer.send_invitation_email(@user).deliver
   end
 
   def update

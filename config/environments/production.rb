@@ -63,6 +63,7 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "mini_e_commerce_production"
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.perform_deliveries = true
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -100,12 +101,14 @@ Rails.application.configure do
   #config.action_mailer.default_url_options = { :host => 'e-comshopper.herokuapp.com' }
 
   Rails.application.routes.default_url_options[:host] = 'e-comshopper.herokuapp.com'
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :sendgrid_actionmailer
+  config.action_mailer.sendgrid_actionmailer_settings = {
+  api_key: ENV['SENDGRID_API_KEY'],
+  raise_delivery_errors: true
+}
   config.action_mailer.default :charset => "utf-8"
 
-  config.action_mailer.delivery_method = :mailgun
+  #config.action_mailer.delivery_method = :mailgun
 
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector

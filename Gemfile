@@ -33,8 +33,9 @@ gem 'omniauth-google-oauth2'
 gem 'activerecord-session_store'
 gem 'omniauth-facebook'
 #gem "letter_opener", group: :development
-gem 'mailgun-ruby', '~>1.2.5'
-
+#gem 'mailgun-ruby', '~>1.2.5'
+gem 'sendgrid-ruby'
+gem 'sendgrid-actionmailer'
 gem 'stripe'
 
 # Reduces boot times through caching; required in config/boot.rb
