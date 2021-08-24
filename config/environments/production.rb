@@ -62,8 +62,7 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "mini_e_commerce_production"
 
-  config.action_mailer.perform_caching = false
-  config.action_mailer.perform_deliveries = true
+  
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -96,17 +95,39 @@ Rails.application.configure do
   end
 
   # Do not dump schema after migrations.
-  config.active_record.dump_schema_after_migration = false
+  #config.active_record.dump_schema_after_migration = false
 
   #config.action_mailer.default_url_options = { :host => 'e-comshopper.herokuapp.com' }
 
   Rails.application.routes.default_url_options[:host] = 'e-comshopper.herokuapp.com'
-  config.action_mailer.delivery_method = :sendgrid_actionmailer
-  config.action_mailer.sendgrid_actionmailer_settings = {
-  api_key: ENV['SENDGRID_API_KEY'],
-  raise_delivery_errors: true
-}
-  config.action_mailer.default :charset => "utf-8"
+  # config.action_mailer.delivery_method = :sendgrid_actionmailer
+  # config.action_mailer.sendgrid_actionmailer_settings = {
+  # api_key: ENV['SENDGRID_API_KEY'],
+  # raise_delivery_errors: true
+  # }
+  # config.action_mailer.delivery_method = :mailgun
+  # config.action_mailer.mailgun_settings = {
+  #   api_key: ENV['API_KEY'],
+  #   domain: ENV['DOMAIN_NAME'],
+  #   # api_host: 'api.eu.mailgun.net'  # Uncomment this line for EU region domains
+  # }
+  # config.action_mailer.default :charset => "utf-8"
+
+  #config.action_mailer.perform_deliveries = true
+  config.active_record.dump_schema_after_migration = false
+  config.action_mailer.perform_caching = false
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+    :domain  => ENV['MAILER_DOMAIN'],
+    :user_name => ENV['MAILER_USERNAME'],
+    :password => ENV['MAILER_PASSWORD'],
+    :address => 'smtp.mailgun.org',
+    :port      => '587',
+    :authentication => :plain,
+    enable_starttls_auto: true
+  }
 
   #config.action_mailer.delivery_method = :mailgun
 
