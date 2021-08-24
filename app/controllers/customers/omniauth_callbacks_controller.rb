@@ -3,7 +3,7 @@
 class Customers::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # You should configure your model like this:
   #devise :omniauthable, omniauth_providers: [:google_oauth2]
-  skip_before_action :verify_authenticity_token, only: :facebook
+  #skip_before_action :verify_authenticity_token, only: :facebook
   
   # You should also create an action method in this controller like this:
   # def twitter
