@@ -24,7 +24,7 @@
 					<div class="social-icons pull-center">
 							<ul class="nav navbar-nav">
 							
-								<% if user_signed_in? && (current_user.has_role?(:employee) || current_user.has_role?(:vendor)) %>
+								<% if (current_user.has_role?(:employee) || current_user.has_role?(:vendor)) && user_signed_in? %>
 									<li><a href=""><i class="fa fa-building"></i>You are the <%= current_user.roles.first.name %> of <%= fetch_company[0] %></a></li>
 								<%end%>
 								
