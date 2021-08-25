@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, :except => [:index, :show, :search, :add_to_cart, :remove_from_cart]
+  before_action :authenticate_user!, :except => [:index, :show, :search, :add_to_cart, :remove_from_cart, :company_product]
   before_action :initialize_session
   before_action :load_cart
 
@@ -21,6 +21,11 @@ class ProductsController < ApplicationController
       ids = current_user.company.products.pluck(:id) << current_user.id
       @products = Product.where(user_id: ids).order('created_at DESC')
     end
+  end
+
+  def company_product
+    curr_company = helpers.fetch_company[1]
+    @products = curr_company.products
   end
 
   # GET /products/new
