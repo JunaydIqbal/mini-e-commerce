@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<% if @cart != [] %>
+<% if @cart.present? %>
   <h1>Shopping Cart</h1>
   <ol>
     <% @cart.each do |product|%>
