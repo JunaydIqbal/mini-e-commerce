@@ -39,7 +39,7 @@
         
         <td><%= button_to "Buy Now!", checkout_create_path, params: {id: product.id}, remote: true, class: "btn btn-info" %></td>
         <td>
-          <% if @cart.include?(product) %>
+          <% if @cart.present? && @cart.include?(product) %>
             <%= button_to "Remove from cart", remove_from_cart_path(product), method: :delete, class: "btn btn-warning" %>
           <% else %>
             <%= button_to "Add to cart", add_to_cart_path(product), class: "btn btn-success" %>
