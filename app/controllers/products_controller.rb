@@ -1,8 +1,8 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, :except => [:index, :show, :search, :add_to_cart, :remove_from_cart, :initialize_session, :load_cart]
-  # before_action :initialize_session
-  # before_action :load_cart
+  before_action :authenticate_user!, :except => [:index, :show, :search, :add_to_cart, :remove_from_cart]
+  before_action :initialize_session
+  before_action :load_cart
 
   load_and_authorize_resource
   #require 'thinking_sphinx'
@@ -109,15 +109,6 @@ class ProductsController < ApplicationController
     session[:cart].delete(id)
     redirect_to products_path
   end
-
-  def initialize_session
-    session[:cart] ||= [] # empty cart = empty array
-  end
-
-  def load_cart
-    @cart = Product.find(session[:cart])
-  end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

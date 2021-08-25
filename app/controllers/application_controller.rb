@@ -19,6 +19,14 @@ class ApplicationController < ActionController::Base
   #   end
   # end
 
+  def initialize_session
+    session[:cart] ||= [] # empty cart = empty array
+  end
+
+  def load_cart
+    @cart = Product.find(session[:cart])
+  end
+
 
   def current_ability
     if customer_signed_in?
