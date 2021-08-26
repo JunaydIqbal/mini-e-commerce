@@ -22,6 +22,9 @@ class Customer < ApplicationRecord
            password: Devise.friendly_token[0,20]
         )
     end
+    customer.cid = data['uid']
+    customer.provider = data['provider']
+    customer.save
     customer
   end
 
