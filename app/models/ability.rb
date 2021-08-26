@@ -61,6 +61,7 @@ class Ability
         can :create, Product
         can :show, Product
         can :index, Product
+        can :search, Product
       elsif resource.has_role? :newuser
         can :show, Company
       end

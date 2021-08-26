@@ -1,13 +1,15 @@
 <h2 style="text-align: center">Employees</h2>
+<br>
 <%count = 0%>
 <% if current_user.has_role?(:vendor)%>
   <div style="text-align: right;">
       <%= link_to 'Add Employee', new_user_invitation_path, class: "btn btn-success" %>
   </div>
-<%end%>
-<div style="text-align: right;">
+  <div style="text-align: right;">
     Total Employees: <b><%= current_user.invitees.count %></b>
 </div>
+<%end%>
+
 <table class="table">
   <thead class="table-dark">
     <th scope="col">#</th>
@@ -15,15 +17,36 @@
     <th scope="col">Email</th>
     <th scope="col">Accepted</th>
   </thead>
-  <% current_user.invitees.each do |user|%>
-  <tbody>
-    <tr>
-      <th scope="row"><%=count += 1 %></th>
-      <td><%= user.email.split("@")[0].capitalize %></td>
-      <td><%= user.email %></td>
-      <td><%= user.invitation_accepted?.to_s.capitalize%></td>
-    </tr>
-  </tbody>
+  <%if current_user.has_role?(:vendor)%>
+    <% current_user.invitees.each do |user|%>
+    <tbody>
+      <tr>
+        <th scope="row"><%=count += 1 %></th>
+        <td><%= user.email.split("@")[0].capitalize %></td>
+        <td><%= user.email %></td>
+      
+        <% if user.invitation_accepted? %>
+          <td style = "color: green;"><%=user.invitation_accepted?.to_s.capitalize%></td>
+        <%else%>
+          <td style = "color: red;"><%= user.invitation_accepted?.to_s.capitalize%></td>
+        <%end%>
+        
+      </tr>
+    </tbody>
+    <%end%>
+  <%else%>
+    <% @who_invited_me.invitees.each do |user1|%>
+    <tbody>
+      <tr>
+        <% if user1.invitation_accepted? %>
+          <th scope="row"><%=count += 1 %></th>
+          <td><%= user1.email.split("@")[0].capitalize %></td>
+          <td><%= user1.email %></td>
+          <td style = "color: green;"><%=user1.invitation_accepted?.to_s.capitalize%></td>
+        <%end%>
+      </tr>
+    </tbody>
+    <%end%>
   <%end%>
 
 </table>

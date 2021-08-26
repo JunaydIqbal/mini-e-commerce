@@ -33,7 +33,9 @@ class CompaniesController < ApplicationController
   end
 
   def employee
-
+    if current_user.has_role?(:employee)
+      @who_invited_me = User.find(current_user.invited_by_id)
+    end
   end
 
   def show
