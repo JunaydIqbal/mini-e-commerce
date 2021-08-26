@@ -74,9 +74,7 @@ class Customers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
         session['devise.facebook_data'] = request.env['omniauth.auth'].except('extra')
         redirect_to new_customer_registration_url, alert: @customer.errors.full_messages.join('\n')
       end
-    else
-      session['devise.facebook_data'] = request.env['omniauth.auth']
-      redirect_to new_customer_registration_url, alert: 'Email can`t be blank. Please Provide a valid Email Address.'
+    
     end
   end
 
