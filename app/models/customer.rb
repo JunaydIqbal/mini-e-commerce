@@ -26,7 +26,7 @@ class Customer < ApplicationRecord
     # customer.cid = data['uid']
     # customer.provider = data['provider']
     # customer.save
-    where(provider: data.provider, cid: data.uid).first_or_create do |cust|
+    where(provider: data.provider, cid: data.cid).first_or_create do |cust|
       cust.email = data.email
       cust.username = data.name.length > 15 ? data.name.slice(0..14).gsub(/\s+/, "") : data.name.gsub(/\s+/, "")
       cust.name = data.name
