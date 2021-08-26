@@ -65,6 +65,14 @@ class Ability
       elsif resource.has_role? :newuser
         can :show, Company
       end
+    elsif resource.is_a?(Customer)
+      can :show, Product
+      can :index, Product
+      can :list, Company
+      can :show, Company
+      can :search, Product
+      can :add_to_cart, Product
+      can :remove_from_cart, Product
     else
       can :show, Product
       can :index, Product

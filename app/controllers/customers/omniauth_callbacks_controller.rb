@@ -73,8 +73,6 @@ class Customers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
       session["devise.facebook_data"] = request.env["omniauth.auth"].except(:extra) # Removing extra as it can overflow some session stores
       redirect_to new_customer_registration_url, alert: @customer.errors.full_messages.join("\n")
     end
-    
-  
   end
 
   
