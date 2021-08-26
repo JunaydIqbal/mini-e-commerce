@@ -40,7 +40,7 @@ class Customer < ApplicationRecord
   end
 
   after_create do
-    customer = Stripe::Customer.create(email: email, phone: phone, username: username)
+    customer = Stripe::Customer.create(email: email)
     update(stripe_customer_id: customer.id)
   end
 
