@@ -64,7 +64,7 @@ class Customers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
 
   def facebook
     # You need to implement the method below in your model (e.g. app/models/user.rb)
-    @customer = Customer.from_omniauth_fb(request.env["omniauth.auth"])
+    @customer = Customer.from_omniauth(request.env["omniauth.auth"])
     
     if @customer.persisted?
       set_flash_message(:notice, :success, kind: "Facebook") if is_navigational_format?

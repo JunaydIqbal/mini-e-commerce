@@ -13,9 +13,6 @@ class Customer < ApplicationRecord
   def self.from_omniauth(access_token)
     data = access_token.info
     #customer = Customer.where(email: data['email']).first
-    p "jjj"
-    p data.email
-    p "junaid"
     # # Uncomment the section below if you want users to be created if they don't exist
     # unless customer
     #   customer = Customer.create(username: data['name'].length > 15 ? data['name'].slice(0..14).gsub(/\s+/, "") : data['name'].gsub(/\s+/, ""),
@@ -37,32 +34,22 @@ class Customer < ApplicationRecord
     end
   end
 
-  def self.from_omniauth_fb(access_token)
-    data = access_token.info
-    customer = Customer.where(email: data.email).first
-    p data.email
-    p "juanid"
-    # Uncomment the section below if you want users to be created if they don't exist
-    unless customer
-      customer = Customer.create(username: data.name.length > 15 ? data['name'].slice(0..14).gsub(/\s+/, "") : data['name'].gsub(/\s+/, ""),
-           email: data.email,
-           phone: data.phone,
-           password: Devise.friendly_token[0,20]
-        )
-      #customer.save
-    end
-    customer
-    # customer.cid = data['uid']
-    # customer.provider = data['provider']
-    # customer.save
-    # where(provider: access_token.provider, cid: access_token.uid).first_or_create do |cust|
-    #   cust.email = data.email
-    #   cust.username = data.name.length > 15 ? data.name.slice(0..14).gsub(/\s+/, "") : data.name.gsub(/\s+/, "")
-    #   cust.name = data.name
-    #   cust.password = Devise.friendly_token[0,20]
-    #   cust.save
-    # end
-  end
+  # def self.from_omniauth_fb(access_token)
+  #   data = access_token.info
+  #   customer = Customer.where(email: data.email).first
+  #   p data.email
+  #   p "juanid"
+  #   # Uncomment the section below if you want users to be created if they don't exist
+  #   unless customer
+  #     customer = Customer.create(username: data.name.length > 15 ? data['name'].slice(0..14).gsub(/\s+/, "") : data['name'].gsub(/\s+/, ""),
+  #          email: data.email,
+  #          phone: data.phone,
+  #          password: Devise.friendly_token[0,20]
+  #       )
+  #     #customer.save
+  #   end
+  #   customer
+  # end
 
   def to_s
     email
