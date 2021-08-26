@@ -45,6 +45,8 @@ class Ability
         can :update, Product, company_id: resource.company.id
         can :manage, Product, company_id: resource.company.id
         can :destroy, Product, company_id: resource.company.id
+        can :add_to_cart, Product
+        can :remove_from_cart, Product
       elsif resource.has_role? :admin
         can :create, Company
         can :manage, Company
@@ -53,6 +55,8 @@ class Ability
         can :create, Product
         can :update, Product, company_id: resource.company.id
         can :destroy, Product, company_id: resource.company.id
+        can :add_to_cart, Product
+        can :remove_from_cart, Product
       elsif resource.has_role? :employee
         can :index, Company, user_id: resource.id
         can :show, Company, user_id: resource.id
@@ -62,6 +66,8 @@ class Ability
         can :show, Product
         can :index, Product
         can :search, Product
+        can :add_to_cart, Product
+        can :remove_from_cart, Product
       elsif resource.has_role? :newuser
         can :show, Company
       end

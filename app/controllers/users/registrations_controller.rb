@@ -46,7 +46,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
         end
       end
     else
-      flash.clear
       flash[:error] = "Company is already exist!"
       redirect_to new_user_registration_path
     end
@@ -54,7 +53,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def company_is_exist
     check = Company.where(name: params[:user][:company][:name])
-    if check == nil
+    if check ==  nil || check == []
       return false
     end
     true
