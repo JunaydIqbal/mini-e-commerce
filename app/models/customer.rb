@@ -26,15 +26,8 @@ class Customer < ApplicationRecord
     # customer.cid = data['uid']
     # customer.provider = data['provider']
     # customer.save
-    customer = where(provider: data.provider, cid: data.uid).first_or_initialize do |cust|
-      cust.email = data.email
-      cust.username = data.name.length > 15 ? data.name.slice(0..14).gsub(/\s+/, "") : data.name.gsub(/\s+/, "")
-      cust.name = data.name
-      cust.password = Devise.friendly_token[0,20]
-    end
-
-    customer.save
-    customer
+    where(provider: data.provider, cid: data.uid).first_or_initialize(email: data.email, username: data.name.length > 15 ? data.name.slice(0..14).gsub(/\s+/, "") : data.name.gsub(/\s+/, ""), name: data.name, encrypted_password: Devise.friendly_token[0,20])
+      
   end
 
   def to_s
