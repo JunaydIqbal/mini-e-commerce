@@ -36,7 +36,8 @@ gem 'omniauth-facebook'
 #gem 'mailgun-ruby', '~>1.2.5'
 # gem 'sendgrid-ruby'
 # gem 'sendgrid-actionmailer'
-gem 'mailgun-ruby', '~>1.2.5'
+#gem 'mailgun-ruby', '~>1.2.5'
+#gem 'carter'
 
 gem 'stripe'
 

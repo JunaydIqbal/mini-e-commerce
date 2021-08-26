@@ -25,6 +25,14 @@ class Customer < ApplicationRecord
     customer
   end
 
+  def to_s
+    email
+  end
+
+  after_create do
+    customer = Stripe::Customer.create(email: email)
+    update(stripe_customer_id: customer.id)
+  end
 
   # def self.from_fb_omniauth(auth)
   #   customer = Customer.where(email: auth.info.email).first

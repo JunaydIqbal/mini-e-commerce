@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <% if @cart.present? %>
+  <%= @cart.collect {|item| item.to_builder.attributes!} %>
   <h1>Shopping Cart</h1>
   <ol>
     <% @cart.each do |product|%>
@@ -9,6 +10,7 @@
     <%end%>
   </ol>
   <br><br>
+  <%= button_to "Buy Now!", checkout_create_path, remote: true, class: "btn btn-info", data: {disable_with: "Validating ..."} %>
 <%end%>
 
 <h1>Products</h1>
@@ -37,7 +39,7 @@
         <td><%= product.description %></td>
         <td><%= product.price %></td>
         
-        <td><%= button_to "Buy Now!", checkout_create_path, params: {id: product.id}, remote: true, class: "btn btn-info" %></td>
+        <td></td>
         <td>
           <% if @cart.present? && @cart.include?(product) %>
             <%= button_to "Remove from cart", remove_from_cart_path(product), method: :delete, class: "btn btn-warning" %>
