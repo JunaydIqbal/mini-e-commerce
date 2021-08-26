@@ -11,7 +11,7 @@ class Customer < ApplicationRecord
 
 
   def self.from_omniauth(access_token)
-    # data = access_token.info
+    data = access_token.info
     # customer = Customer.where(email: data['email']).first
     
     # # Uncomment the section below if you want users to be created if they don't exist
@@ -25,10 +25,10 @@ class Customer < ApplicationRecord
     # customer.cid = data['uid']
     # customer.provider = data['provider']
     # customer.save
-    where(provider: auth.provider, cid: auth.uid).first_or_create do |cust|
-      cust.email = auth.info.email
-      cust.username = auth.info.name.length > 15 ? data['name'].slice(0..14).gsub(/\s+/, "") : data['name'].gsub(/\s+/, "")
-      cust.name = auth.info.name
+    where(provider: data.provider, cid: data.uid).first_or_create do |cust|
+      cust.email = data.email
+      cust.username = data.name.length > 15 ? data.name.slice(0..14).gsub(/\s+/, "") : data.name.gsub(/\s+/, "")
+      cust.name = data.name
       cust.password = Devise.friendly_token[0,20]
     end
   end
