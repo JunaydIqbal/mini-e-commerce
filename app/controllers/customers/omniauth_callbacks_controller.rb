@@ -67,11 +67,11 @@ class Customers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
     @customer = Customer.from_omniauth(request.env["omniauth.auth"])
     
     if @customer.persisted?
-      sign_in_and_redirect @customer, event: :authentication # this will throw if @user is not activated
       set_flash_message(:notice, :success, kind: "Facebook") if is_navigational_format?
+      sign_in_and_redirect @customer, event: :authentication # this will throw if @user is not activated
     else
       session["devise.facebook_data"] = request.env["omniauth.auth"].except(:extra) # Removing extra as it can overflow some session stores
-      redirect_to new_customer_registration_url
+      redirect_to new_customer_registration_url, alert: @customer.errors.full_messages.join("\n")
     end
     
   
