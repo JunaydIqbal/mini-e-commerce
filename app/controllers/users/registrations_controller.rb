@@ -34,16 +34,30 @@ class Users::RegistrationsController < Devise::RegistrationsController
     #   end
     # end
     #ss
-    super do |created_user|
-      if created_user.id
-        
-        @company = Company.new(name: params[:user][:company][:name])
-        @company.user_id = created_user.id
-        @company.save
-            
+
+    if !company_is_exist
+      super do |created_user|
+        if created_user.id
+          
+          @company = Company.new(name: params[:user][:company][:name])
+          @company.user_id = created_user.id
+          @company.save
+              
+        end
       end
+    else
+      flash.clear
+      flash[:error] = "Company is already exist!"
+      redirect_to new_user_registration_path
     end
-  
+  end
+
+  def company_is_exist
+    check = Company.where(name: params[:user][:company][:name])
+    if check == nil
+      return false
+    end
+    true
   end
 
   # GET /resource/edit
