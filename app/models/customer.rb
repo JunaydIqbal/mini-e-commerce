@@ -37,14 +37,13 @@ class Customer < ApplicationRecord
 
   def self.from_omniauth_fb(access_token)
     data = access_token.info
-    customer = Customer.where(email: data['email']).first
+    customer = Customer.where(email: data.email).first
     
     # Uncomment the section below if you want users to be created if they don't exist
     unless customer
-      customer = Customer.create(username: data['name'].length > 15 ? data['name'].slice(0..14).gsub(/\s+/, "") : data['name'].gsub(/\s+/, ""),
-           email: data['email'],
-           phone: data['phone'],
-           name: data['name'],
+      customer = Customer.create(username: data.name.length > 15 ? data['name'].slice(0..14).gsub(/\s+/, "") : data['name'].gsub(/\s+/, ""),
+           email: data.email,
+           phone: data.phone,
            password: Devise.friendly_token[0,20]
         )
       customer.save
