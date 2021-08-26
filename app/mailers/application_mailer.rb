@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'eizelhomee@gmail.com'
+  default from: 'im.mjunaid.iqbal@gmail.com'
   layout 'mailer'
 
   # def sent_invitation_email(user)

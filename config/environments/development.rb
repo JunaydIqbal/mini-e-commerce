@@ -86,20 +86,20 @@ Rails.application.configure do
   # }
 
   #config.action_mailer.delivery_method = :mailgun
-  config.active_record.dump_schema_after_migration = false
+  #config.active_record.dump_schema_after_migration = false
   config.action_mailer.perform_caching = false
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = false
-  ActionMailer::Base.delivery_method = :smtp
-  ActionMailer::Base.smtp_settings = {
-    :domain  => ENV['MAILER_DOMAIN'],
-    :user_name => ENV['MAILER_USERNAME'],
-    :password => ENV['MAILER_PASSWORD'],
-    :address => 'smtp.mailgun.org',
-    :port      => '587',
-    :authentication => :plain,
-    enable_starttls_auto: true
-  }
-  config.action_mailer.default :charset => "utf-8"
+  # config.action_mailer.raise_delivery_errors = false
+  # ActionMailer::Base.delivery_method = :smtp
+  # ActionMailer::Base.smtp_settings = {
+  #   :domain  => ENV['MAILER_DOMAIN'],
+  #   :user_name => ENV['MAILER_USERNAME'],
+  #   :password => ENV['MAILER_PASSWORD'],
+  #   :address => 'smtp.mailgun.org',
+  #   :port      => '587',
+  #   :authentication => :plain,
+  #   enable_starttls_auto: true
+  # }
+  # config.action_mailer.default :charset => "utf-8"
   
 end

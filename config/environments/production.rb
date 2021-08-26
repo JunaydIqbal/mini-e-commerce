@@ -138,7 +138,7 @@ Rails.application.configure do
     :address => ENV['MAILGUN_SMTP_SERVER'],
     :user_name =>ENV['MAILGUN_SMTP_LOGIN'],
     :password => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain => 'gentle-coast-65629.herokuapp.com',
+    :domain => ENC['MAILGUN_DOMAIN'],
     :authentication => :plain,
     enable_starttls_auto: true
   }
