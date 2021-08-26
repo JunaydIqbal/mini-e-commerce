@@ -12,8 +12,8 @@ class Customer < ApplicationRecord
 
   def self.from_omniauth(access_token)
     data = access_token.info
-    customer = Customer.where(email: data.email).first
-
+    customer = Customer.where(email: data['email']).first
+    
     # Uncomment the section below if you want users to be created if they don't exist
     unless customer
       customer = Customer.create(username: data['name'].length > 15 ? data['name'].slice(0..14).gsub(/\s+/, "") : data['name'].gsub(/\s+/, ""),
@@ -25,14 +25,14 @@ class Customer < ApplicationRecord
     customer
   end
 
-  # def to_s
-  #   email
-  # end
+  def to_s
+    email
+  end
 
-  # after_create do
-  #   customer = Stripe::Customer.create(email: email, phone: phone, username: username)
-  #   update(stripe_customer_id: customer.id)
-  # end
+  after_create do
+    customer = Stripe::Customer.create(email: email, phone: phone, username: username)
+    update(stripe_customer_id: customer.id)
+  end
 
   
 
