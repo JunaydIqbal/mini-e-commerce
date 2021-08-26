@@ -99,7 +99,7 @@ Rails.application.configure do
 
   #config.action_mailer.default_url_options = { :host => 'e-comshopper.herokuapp.com' }
 
-  Rails.application.routes.default_url_options[:host] = 'e-comshopper.herokuapp.com'
+  #Rails.application.routes.default_url_options[:host] = 'e-comshopper.herokuapp.com'
   # config.action_mailer.delivery_method = :sendgrid_actionmailer
   # config.action_mailer.sendgrid_actionmailer_settings = {
   # api_key: ENV['SENDGRID_API_KEY'],
@@ -114,20 +114,35 @@ Rails.application.configure do
   # config.action_mailer.default :charset => "utf-8"
 
   #config.action_mailer.perform_deliveries = true
+  # config.active_record.dump_schema_after_migration = false
+  # config.action_mailer.perform_caching = false
+  # config.action_mailer.perform_deliveries = true
+  # config.action_mailer.raise_delivery_errors = false
+  # ActionMailer::Base.delivery_method = :smtp
+  # ActionMailer::Base.smtp_settings = {
+  #   :domain  => ENV['MAILER_DOMAIN'],
+  #   :user_name => ENV['MAILER_USERNAME'],
+  #   :password => ENV['MAILER_PASSWORD'],
+  #   :address => 'smtp.mailgun.org',
+  #   :port      => '587',
+  #   :authentication => :plain,
+  #   enable_starttls_auto: true
+  # }
+
+  # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  config.action_mailer.perform_caching = false
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = false
-  ActionMailer::Base.delivery_method = :smtp
-  ActionMailer::Base.smtp_settings = {
-    :domain  => ENV['MAILER_DOMAIN'],
-    :user_name => ENV['MAILER_USERNAME'],
-    :password => ENV['MAILER_PASSWORD'],
-    :address => 'smtp.mailgun.org',
-    :port      => '587',
+  # SMTP
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :port => ENV['MAILGUN_SMTP_PORT'],
+    :address => ENV['MAILGUN_SMTP_SERVER'],
+    :user_name =>ENV['MAILGUN_SMTP_LOGIN'],
+    :password => ENV['MAILGUN_SMTP_PASSWORD'],
+    :domain => 'gentle-coast-65629.herokuapp.com',
     :authentication => :plain,
     enable_starttls_auto: true
   }
+  Rails.application.routes.default_url_options[:host] = 'gentle-coast-65629.herokuapp.com'
 
   #config.action_mailer.delivery_method = :mailgun
 
