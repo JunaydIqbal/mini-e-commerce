@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <% if @cart.present? %>
-  <%= @cart.collect {|item| item.to_builder.attributes!} %>
+
   <h1>Shopping Cart</h1>
   <ol>
     <% @cart.each do |product|%>
@@ -21,8 +21,6 @@
       <th scope="col">Name</th>
       <th scope="col">Description</th>
       <th scope="col">Price</th>
-      
-      
       <th scope="col">Shopping Cart</th>
       <% if can? :manage, @products.first%>
         <th scope="col">Sales</th>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_20_094752) do
+ActiveRecord::Schema.define(version: 2021_08_25_123718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2021_08_20_094752) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "provider"
     t.string "cid"
+    t.string "stripe_customer_id"
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["phone"], name: "index_customers_on_phone", unique: true
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
@@ -53,6 +54,8 @@ ActiveRecord::Schema.define(version: 2021_08_20_094752) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "sales_count", default: 0, null: false
+    t.string "stripe_product_id"
+    t.string "stripe_price_id"
     t.index ["company_id"], name: "index_products_on_company_id"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
