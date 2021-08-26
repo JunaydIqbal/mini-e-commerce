@@ -19,7 +19,7 @@ class Customer < ApplicationRecord
       customer = Customer.create(username: data['name'].length > 15 ? data['name'].slice(0..14).gsub(/\s+/, "") : data['name'].gsub(/\s+/, ""),
            email: data['email'],
            phone: data['phone'],
-           name: data['name']
+           name: data['name'],
            password: Devise.friendly_token[0,20]
         )
     end
