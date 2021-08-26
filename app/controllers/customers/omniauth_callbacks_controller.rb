@@ -48,18 +48,40 @@ class Customers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
   #   end
   # end
 
+  # def facebook
+    
+  #   # You need to implement the method below in your model (e.g. app/models/user.rb)
+  #   @customer = Customer.from_omniauth(request.env["omniauth.auth"])
+    
+  #   if @customer.persisted?
+  #     sign_in_and_redirect @customer, event: :authentication # this will throw if @user is not activated
+  #     set_flash_message(:notice, :success, kind: "Facebook") if is_navigational_format?
+  #   else
+  #     session["devise.facebook_data"] = request.env["omniauth.auth"].except(:extra) # Removing extra as it can overflow some session stores
+  #     redirect_to new_customer_registration_url
+  #   end
+  # end
+
   def facebook
-    
     # You need to implement the method below in your model (e.g. app/models/user.rb)
-    @customer = Customer.from_omniauth(request.env["omniauth.auth"])
-    
-    if @customer.persisted?
-      sign_in_and_redirect @customer, event: :authentication # this will throw if @user is not activated
-      set_flash_message(:notice, :success, kind: "Facebook") if is_navigational_format?
+    @customer = Customer.from_omniauth(request.env['omniauth.auth'])
+    if @customer.email.present?
+      if @customer.persisted?
+        # below will throw if @user is not activated
+        sign_in_and_redirect @customer, event: :authentication
+        set_flash_message(:notice, :success, kind: 'Facebook') if is_navigational_format?
+      else
+        session['devise.facebook_data'] = request.env['omniauth.auth'].except('extra')
+        redirect_to new_customer_registration_url, alert: @customer.errors.full_messages.join('\n')
+      end
     else
-      session["devise.facebook_data"] = request.env["omniauth.auth"].except(:extra) # Removing extra as it can overflow some session stores
-      redirect_to new_customer_registration_url
+      session['devise.facebook_data'] = request.env['omniauth.auth']
+      redirect_to new_customer_registration_url, alert: 'Email can`t be blank. Please Provide a valid Email Address.'
     end
+  end
+
+  def failure
+    redirect_to root_path
   end
 
   
