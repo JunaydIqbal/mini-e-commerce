@@ -7,6 +7,12 @@ class Users::InvitationsController < Devise::InvitationsController
     
   end
 
+  def create
+
+    super 
+  end
+
+
   def update
     super
   end
