@@ -68,16 +68,23 @@
                       <h2><strong> <%=comp.products.count%></strong></h2> 
                       
                       <br>              
-                     
-                      <a class="btn btn-success btn-block" style="color:white;" href="<%=products_path%>"><span class="fa fa-plus-circle"></span> Products </a>
+                      <% if can? :update, comp %>
+                        <a class="btn btn-success btn-block" style="color:white;" href="<%=my_products_path%>"><span class="fa fa-plus-circle"></span> My Products </a>
+                      <%else%>
+                        <a class="btn btn-success btn-block" style="color:white;" href="<%=products_path%>"><span class="fa fa-plus-circle"></span> Products </a>
+                      <%end%>
                   </div>
                   <% if user_signed_in? %>
                     <div class="col-xs-12 col-sm-4 emphasis">
                         
                         <h2><strong><%=comp.user.invitees.count%></strong></h2>   
                          
-                        <br>          
-                        <a class="btn btn-info btn-block" style="color:white;" href="<%=employees_path%>"><span class="fa fa-user"></span> Employees </a>
+                        <br>    
+                        <% if can? :update, comp %>      
+                          <a class="btn btn-info btn-block" style="color:white;" href="<%=employees_path%>"><span class="fa fa-user"></span> Employees </a>
+                        <%else%>
+                          <a class="btn btn-info btn-block" style="color:white;" disabled><span class="fa fa-user"></span> Employees </a>
+                        <%end%>
                     </div>  
                   <%end%>
                   <div class="col-xs-12 col-sm-4 emphasis">
