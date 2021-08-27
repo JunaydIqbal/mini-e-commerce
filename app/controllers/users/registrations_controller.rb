@@ -42,7 +42,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
           @company = Company.new(name: params[:user][:company][:name])
           @company.user_id = created_user.id
           @company.save
-              
         end
       end
     else
