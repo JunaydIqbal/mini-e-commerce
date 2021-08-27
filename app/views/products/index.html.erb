@@ -21,6 +21,7 @@
       <th scope="col">Name</th>
       <th scope="col">Description</th>
       <th scope="col">Price</th>
+      <th scope="col">Company Name</th>
       <th scope="col">Shopping Cart</th>
       <% if can? :manage, @products.first%>
         <th scope="col">Sales</th>
@@ -37,7 +38,7 @@
         <td><%= product.name %></td>
         <td><%= product.description %></td>
         <td><%= product.price %></td>
-        
+        <td><%= product.company.name.capitalize%></td>
         
         <td>
           <% if @cart.present? && @cart.include?(product) %>
