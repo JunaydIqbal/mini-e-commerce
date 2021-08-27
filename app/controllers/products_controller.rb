@@ -19,8 +19,15 @@ class ProductsController < ApplicationController
 
   def my_product
     if current_user.has_role?(:vendor)
-      ids = current_user.company.products.pluck(:id) << current_user.id
-      @products = Product.where(user_id: ids).order('created_at DESC')
+      ids = current_user.company.products.pluck(:id) << current_user.company.id
+      @products = Product.where(company_id: ids).order('created_at DESC')
+    elsif current_user.has_role?(:employee)
+      invited_id = current_user.invited_by
+      ids = invited_id.company.products.pluck(:id) << invited_id.company.id
+      @products = Product.where(company_id: ids).order('created_at DESC')
+    else
+      flash[:alert] = "You didn't access this page!"
+      redirect_to root_path
     end
   end
 

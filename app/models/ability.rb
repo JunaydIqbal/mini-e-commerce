@@ -68,6 +68,8 @@ class Ability
         can :search, Product
         can :add_to_cart, Product
         can :remove_from_cart, Product
+        can :my_product, Product
+        can :manage, Product, user_id: resource.id
       elsif resource.has_role? :newuser
         can :show, Company
       end
